@@ -1,0 +1,9 @@
+
+_Khusus Owner:_
+
+⌬ Addprem
+⌬ Delprem
+⌬ Editprem
+⌬ Listprem 
+⌬ Listusers
+⌬ Resetdata
