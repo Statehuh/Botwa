@@ -2,7 +2,7 @@ const moment= require("moment-timezone")
 
 const config = {
     status              : 'on', // on atau off
-    API_KEY             : 'apikey_premium_9b85434f815b696e7809b61a4755b8a8',
+    API_KEY             : 'apikey_premium_9b85434f815b69',
     GEMINI_API_KEY      : 'AIzaSyBgGper_QhuccpG8G8H5KIh7iDI1M8uMkM',
     phone_number_bot    : '6282287634350',
     type_connection     : 'qr', // qr atau pairing
