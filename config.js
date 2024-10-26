@@ -1,7 +1,7 @@
 const moment= require("moment-timezone")
 
 const config = {
-    AutoUpdate          : 'off', // on atau off
+    AutoUpdate          : 'on', // on atau off
     API_KEY             : '', // APIKEY ANDA AMBIL DI autoresbot.com
     GEMINI_API_KEY      : 'AIzaSyBgGper_QhuccpG8G8H5KIh7iDI1M8uMkM',
     phone_number_bot    : '6282287634350',
