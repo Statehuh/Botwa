@@ -2,7 +2,7 @@ const moment= require("moment-timezone")
 
 const config = {
     status              : 'on', // on atau off
-    API_KEY             : '', // APIKEY ANDA AMBIL DI autoresbot.com
+    API_KEY             : 'kosong lagi', // APIKEY ANDA AMBIL DI autoresbot.com
     GEMINI_API_KEY      : 'AIzaSyBgGper_QhuccpG8G8H5KIh7iDI1M8uMkM',
     phone_number_bot    : '6282287634350',
     type_connection     : 'qr', // qr atau pairing
@@ -11,7 +11,7 @@ const config = {
     owner_name          : 'Autoresbot',
     owner_number        : '6285246154386',
     owner_website       : 'autoresbot.com',
-    version             : '1.0',
+    version             : '1.0.1',
     rate_limit          : 3000, // 3 detik
     total_limit         : 20, // limit perhari -  user biasa || kalo premium unlimited
     sticker_packname    : 'Autoresbot',
