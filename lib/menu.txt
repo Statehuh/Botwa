@@ -13,3 +13,4 @@ _Berikut beberapa daftar menu yang bisa saya lakukan:_
 ⌬ Reset
 ⌬ Sticker
 ⌬ Tiktok
+⌬ Apikey
