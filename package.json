@@ -1,6 +1,12 @@
 {
   "name": "Resbot-Ai",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "description": "A project for Resbot AI",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@google/generative-ai": "^0.21.0",
@@ -20,5 +26,10 @@
     "qrcode-terminal": "^0.12.0",
     "simple-git": "^3.27.0",
     "youtube-search-api": "^1.2.2"
-  }
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "Autoresbot",
+  "license": "ISC"
 }
