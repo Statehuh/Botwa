@@ -1,9 +1,27 @@
+/*
+⚠️ PERINGATAN:
+Script ini **TIDAK BOLEH DIPERJUALBELIKAN** dalam bentuk apa pun!
+
+╔══════════════════════════════════════════════╗
+║                🛠️ INFORMASI SCRIPT           ║
+╠══════════════════════════════════════════════╣
+║ 📦 Version   : 1.0.4
+║ 👨‍💻 Developer  : Azhari Creative              ║
+║ 🌐 Website    : https://autoresbot.com       ║
+║ 💻 GitHub     : github.com/autoresbot/resbot-ai
+╚══════════════════════════════════════════════╝
+
+📌 Mulai 11 April 2025,
+Script **Autoresbot** resmi menjadi **Open Source** dan dapat digunakan secara gratis:
+🔗 https://autoresbot.com
+*/
+
 const moment= require("moment-timezone")
 
 const config = {
-    AutoUpdate          : 'on', // on atau off
+    AutoUpdate          : 'off', // on atau off
     API_KEY             : 'APIKEY_GRATIS', // APIKEY ANDA AMBIL DI autoresbot.com
-    GEMINI_API_KEY      : 'AIzaSyBgGper_QhuccpG8G8H5KIh7iDI1M8uMkM',
+    GEMINI_API_KEY      : 'AIzaSyDFBFp5k5mqZB35jdaAXLVfpuyku-W3iN4',
     phone_number_bot    : '6282287634350',
     type_connection     : 'pairing', // qr atau pairing
     bot_destination     : 'private', // group , private, both
@@ -11,7 +29,7 @@ const config = {
     owner_name          : 'Autoresbot',
     owner_number        : '6285246154386',
     owner_website       : 'autoresbot.com',
-    version             : '1.0.2',
+    version             : '1.0.3',
     rate_limit          : 3000, // 3 detik
     total_limit         : 20, // limit perhari -  user biasa || kalo premium unlimited
     sticker_packname    : 'Autoresbot',

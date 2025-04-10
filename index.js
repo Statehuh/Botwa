@@ -1,1 +1,267 @@
-function _0x3f32(){const _0x3446ca=['badSession','242iWUgFN','join','216SXPWbj','qrcode-terminal','authState','existsSync','rate_limit','connectionLost','Connection\x20closed,\x20reconnecting....','stickerMessage','Pesan\x20tidak\x20valid','pino','./lib/ai','Unknown\x20DisconnectReason:\x20','conversation','./tmp','861282HnpxOn','log','pushName','generate','Rate\x20limit\x20:\x20','yellowBright','keys','session','...','11787655zGldLr','Bad\x20Session\x20File,\x20Start\x20Again\x20...','status@broadcast','remoteJid','549LNxzPh','./lib/utils','redBright','chalk','Connection\x20Replaced,\x20Another\x20New\x20Session\x20Opened,\x20Please\x20Restart\x20Bot','statusCode','trim','@whiskeysockets/baileys','3597520svApcO','type_connection','5522Chnfmf','restartRequired','7iTmZZu','message','blue','phone_number_bot','@g.us','selectedId','fromMe','@hapi/boom','./lib/log','extendedTextMessage','messages','connectionReplaced','58530Qmgizg','caption','No\x20caption','connectionClosed','templateButtonReplyMessage','connection.update','requestPairingCode','\x20-\x20','20.0.04','private','89080QUxGsh','creds.update','text','@s.whatsapp.net','pairing','endsWith','Chrome','group','Restart\x20Required,\x20Restarting..','INFO','chmod','bot_destination','Connection\x20TimedOut,\x20Reconnecting...','Unknown','Bot\x20Connected','error','Message\x20atau\x20message.message\x20tidak\x20terdefinisi','append','imageMessage','./lib/cekUpdate','Perangkat\x20Terkeluar,\x20Silakan\x20Lalukan\x20Scan/Pairing\x20Ulang','substring','loggedOut','greenBright','sendMessage','yellow','timedOut','readdir','mkdirSync','participant','1120506zYDaFA','PHONE\x20NUMBER:\x20','./lib/users','messages.upsert','silent'];_0x3f32=function(){return _0x3446ca;};return _0x3f32();}const _0x4a638f=_0x3c4f;(function(_0x438fd2,_0x21c605){const _0x4bbb3a=_0x3c4f,_0x2b23ad=_0x438fd2();while(!![]){try{const _0x204374=parseInt(_0x4bbb3a(0x138))/0x1*(-parseInt(_0x4bbb3a(0x111))/0x2)+parseInt(_0x4bbb3a(0x121))/0x3+-parseInt(_0x4bbb3a(0x113))/0x4*(parseInt(_0x4bbb3a(0x146))/0x5)+parseInt(_0x4bbb3a(0x10b))/0x6+parseInt(_0x4bbb3a(0x13a))/0x7*(-parseInt(_0x4bbb3a(0x136))/0x8)+-parseInt(_0x4bbb3a(0x12e))/0x9*(-parseInt(_0x4bbb3a(0xed))/0xa)+parseInt(_0x4bbb3a(0x12a))/0xb;if(_0x204374===_0x21c605)break;else _0x2b23ad['push'](_0x2b23ad['shift']());}catch(_0x468ecd){_0x2b23ad['push'](_0x2b23ad['shift']());}}}(_0x3f32,0x52bae));const config=require('./config'),path=require('path'),fs=require('fs'),chalk=require(_0x4a638f(0x131)),{writeLog}=require(_0x4a638f(0x142)),{default:makeWASocket,useMultiFileAuthState,DisconnectReason,fetchLatestBaileysVersion}=require(_0x4a638f(0x135)),{processMessage}=require(_0x4a638f(0x11d)),{Boom}=require(_0x4a638f(0x141)),qrcode=require(_0x4a638f(0x114)),pino=require(_0x4a638f(0x11c)),lastMessageTime={},logger=pino({'level':_0x4a638f(0x10f)}),{addUser,getUser}=require(_0x4a638f(0x10d)),{clearDirectory,logWithTime}=require(_0x4a638f(0x12f));clearDirectory(_0x4a638f(0x120));function _0x3c4f(_0xab25aa,_0xf1b2e7){const _0x3f32e9=_0x3f32();return _0x3c4f=function(_0x3c4f17,_0x583fb1){_0x3c4f17=_0x3c4f17-0xe6;let _0x2af0aa=_0x3f32e9[_0x3c4f17];return _0x2af0aa;},_0x3c4f(_0xab25aa,_0xf1b2e7);}async function checkAndUpdate(){const _0x2b1b2b=_0x4a638f;if(config['AutoUpdate']=='on'){const {cloneOrUpdateRepo:_0x2f120c}=require(_0x2b1b2b(0x100));await _0x2f120c();}connectToWhatsApp();}async function connectToWhatsApp(){const _0x4fa0fb=_0x4a638f,_0x442f15=path['join'](__dirname,_0x4fa0fb(0x128)),{state:_0x247c45,saveCreds:_0x35efff}=await useMultiFileAuthState(_0x442f15),{version:_0x4da18f}=await fetchLatestBaileysVersion(),_0x3300f3=makeWASocket({'version':_0x4da18f,'logger':logger,'printQRInTerminal':![],'auth':_0x247c45,'browser':['Ubuntu',_0x4fa0fb(0xf3),_0x4fa0fb(0xeb)]});if(!_0x3300f3[_0x4fa0fb(0x115)]['creds']['registered']&&config['type_connection']==_0x4fa0fb(0xf1)){const _0xb5d493=config['phone_number_bot'],_0x5cca40=_0x3abb10=>new Promise(_0x227ac1=>setTimeout(_0x227ac1,_0x3abb10));await _0x5cca40(0xfa0);const _0xec574d=await _0x3300f3[_0x4fa0fb(0xe9)](_0xb5d493[_0x4fa0fb(0x134)]());console[_0x4fa0fb(0x122)](chalk['blue'](_0x4fa0fb(0x10c)),chalk['yellow'](_0xb5d493)),console[_0x4fa0fb(0x122)](chalk[_0x4fa0fb(0x13c)]('CODE\x20PAIRING:\x20'),chalk[_0x4fa0fb(0x106)](_0xec574d));}return _0x3300f3['ev']['on'](_0x4fa0fb(0xee),_0x35efff),!fs[_0x4fa0fb(0x116)](_0x442f15)&&fs[_0x4fa0fb(0x109)](_0x442f15,{'recursive':!![]}),fs['chmodSync'](_0x442f15,0x1ed),fs[_0x4fa0fb(0x108)](_0x442f15,(_0xbd3a7a,_0x469613)=>{if(_0xbd3a7a)return;_0x469613['forEach'](_0x4e1968=>{const _0x58719e=_0x3c4f,_0x4fd907=path[_0x58719e(0x112)](_0x442f15,_0x4e1968);fs[_0x58719e(0xf7)](_0x4fd907,0x1a4,_0x1d2392=>{_0x1d2392&&console['error']('Error\x20changing\x20file\x20permissions:',_0x1d2392);});});}),_0x3300f3['ev']['on'](_0x4fa0fb(0x10e),async _0x3d985a=>{const _0x4acd28=_0x4fa0fb;try{if(!_0x3d985a||!_0x3d985a[_0x4acd28(0x144)]||!_0x3d985a[_0x4acd28(0x144)][0x0]){console['log'](chalk[_0x4acd28(0x130)](_0x4acd28(0x11b)),chalk['yellow'](phoneNumber));return;}if(_0x3d985a['type']===_0x4acd28(0xfe))return![];const _0x562c26=_0x3d985a[_0x4acd28(0x144)][0x0]['messageTimestamp'],_0x3c11e8=_0x3d985a[_0x4acd28(0x144)][0x0],_0x293aaf=_0x3c11e8['key']||{},_0x497213=_0x293aaf[_0x4acd28(0x12d)]||'',_0x5cba25=_0x293aaf[_0x4acd28(0x140)]||![],_0x4cd634=_0x293aaf['id']||![],_0x1c1bfd=_0x293aaf[_0x4acd28(0x10a)]||'',_0x563466=_0x3c11e8[_0x4acd28(0x123)]||_0x4acd28(0xfa),_0x6c40f8=_0x497213[_0x4acd28(0xf2)](_0x4acd28(0x13e)),_0x139a83=_0x6c40f8?_0x1c1bfd:_0x497213;if(_0x497213==_0x4acd28(0x12c))return![];const _0x2e12c4=config[_0x4acd28(0xf8)]['toLowerCase']();if(_0x6c40f8&&_0x2e12c4===_0x4acd28(0xec)||!_0x6c40f8&&_0x2e12c4===_0x4acd28(0xf4))return;let _0x547413='',_0x421b8b='';if(_0x3c11e8&&_0x3c11e8['message'])_0x421b8b=Object[_0x4acd28(0x127)](_0x3c11e8[_0x4acd28(0x13b)])[0x0],_0x547413=_0x421b8b===_0x4acd28(0x11f)?_0x3c11e8[_0x4acd28(0x13b)]['conversation']:_0x421b8b===_0x4acd28(0x143)?_0x3c11e8[_0x4acd28(0x13b)]['extendedTextMessage'][_0x4acd28(0xef)]:_0x421b8b==='senderKeyDistributionMessage'?_0x3c11e8[_0x4acd28(0x13b)][_0x4acd28(0x11f)]:_0x421b8b==='imageMessage'?_0x3c11e8[_0x4acd28(0x13b)][_0x4acd28(0xff)][_0x4acd28(0x147)]||_0x4acd28(0x148):_0x421b8b===_0x4acd28(0x11a)?_0x4acd28(0x11a):_0x421b8b===_0x4acd28(0xe7)?_0x3c11e8[_0x4acd28(0x13b)][_0x4acd28(0xe7)][_0x4acd28(0x13f)]:'';else return console['log'](chalk[_0x4acd28(0x130)](_0x4acd28(0xfd)));if(_0x547413=='')return;let _0x47d70d=_0x547413;_0x547413['length']>0xa&&(_0x47d70d=_0x547413[_0x4acd28(0x102)](0x0,0xa)+_0x4acd28(0x129));const _0x4a422d=Date['now']();if(lastMessageTime[_0x139a83]&&_0x4a422d-lastMessageTime[_0x139a83]<config[_0x4acd28(0x117)]){console[_0x4acd28(0x122)](chalk[_0x4acd28(0x130)](_0x4acd28(0x125)+_0x47d70d+_0x4acd28(0xea)+_0x139a83));return;}lastMessageTime[_0x139a83]=_0x4a422d,logWithTime(_0x563466,_0x47d70d),writeLog(_0x4acd28(0xf6),_0x497213+':\x20'+_0x547413);const _0x16cb64=getUser(_0x497213);!_0x16cb64&&addUser(_0x497213,-0x1);try{const _0x21820d=await processMessage(_0x547413,_0x3300f3,_0x497213,_0x3c11e8,_0x421b8b,_0x563466);}catch(_0x4db310){console[_0x4acd28(0xfc)]('Terjadi\x20kesalahan\x20saat\x20memproses\x20pesan:',_0x4db310);}}catch(_0x150c02){console['log'](chalk[_0x4acd28(0x130)]('Error\x20dalam\x20message\x20upsert:\x20'+_0x150c02[_0x4acd28(0x13b)]));}}),_0x3300f3['ev']['on'](_0x4fa0fb(0xe8),async _0x22f331=>{const _0x5df268=_0x4fa0fb,{connection:_0x13b6b6,lastDisconnect:_0x32d370,qr:_0x3211c2}=_0x22f331;_0x3211c2!=null&&config[_0x5df268(0x137)]=='qr'&&(console[_0x5df268(0x122)](chalk[_0x5df268(0x126)]('Menampilkan\x20QR')),qrcode[_0x5df268(0x124)](_0x3211c2,{'small':!![]},_0x54f0dd=>{const _0x461645=_0x5df268;console[_0x461645(0x122)](_0x54f0dd);}));if(_0x13b6b6==='close'){let _0x3f642d=new Boom(_0x32d370?.[_0x5df268(0xfc)])?.['output'][_0x5df268(0x133)];switch(_0x3f642d){case DisconnectReason[_0x5df268(0x110)]:console['log'](chalk['redBright'](_0x5df268(0x12b)));return await connectToWhatsApp();break;case DisconnectReason[_0x5df268(0xe6)]:console['log'](chalk[_0x5df268(0x130)](_0x5df268(0x119)));return await connectToWhatsApp();break;case DisconnectReason[_0x5df268(0x118)]:console[_0x5df268(0x122)](chalk['redBright']('Connection\x20Lost\x20from\x20Server,\x20reconnecting...'));return await connectToWhatsApp();break;case DisconnectReason[_0x5df268(0x145)]:console[_0x5df268(0x122)](chalk[_0x5df268(0x130)](_0x5df268(0x132)));return await connectToWhatsApp();break;case DisconnectReason[_0x5df268(0x103)]:console[_0x5df268(0x122)](chalk[_0x5df268(0x130)](_0x5df268(0x101)));break;case DisconnectReason[_0x5df268(0x139)]:console['log'](chalk[_0x5df268(0x130)](_0x5df268(0xf5)));return await connectToWhatsApp();break;case DisconnectReason[_0x5df268(0x107)]:console[_0x5df268(0x122)](chalk[_0x5df268(0x130)](_0x5df268(0xf9)));return await connectToWhatsApp();break;default:console[_0x5df268(0x122)](chalk['redBright'](_0x5df268(0x11e)+_0x3f642d+'|'+_0x13b6b6));return await connectToWhatsApp(dataConnection);break;}}else _0x13b6b6==='open'&&(await _0x3300f3[_0x5df268(0x105)](config[_0x5df268(0x13d)]+_0x5df268(0xf0),{'text':_0x5df268(0xfb)}),console[_0x5df268(0x122)](chalk[_0x5df268(0x104)]('KONEKSI\x20TERHUBUNG')));}),_0x3300f3;}checkAndUpdate();
+/*
+⚠️ PERINGATAN:
+Script ini **TIDAK BOLEH DIPERJUALBELIKAN** dalam bentuk apa pun!
+
+╔══════════════════════════════════════════════╗
+║                🛠️ INFORMASI SCRIPT           ║
+╠══════════════════════════════════════════════╣
+║ 📦 Version   : 1.0.4
+║ 👨‍💻 Developer  : Azhari Creative              ║
+║ 🌐 Website    : https://autoresbot.com       ║
+║ 💻 GitHub     : github.com/autoresbot/resbot-ai
+╚══════════════════════════════════════════════╝
+
+📌 Mulai 11 April 2025,
+Script **Autoresbot** resmi menjadi **Open Source** dan dapat digunakan secara gratis:
+🔗 https://autoresbot.com
+*/
+
+const config        = require('./config');
+const path          = require('path')
+const fs            = require('fs');
+const chalk         = require('chalk');
+const { writeLog } = require('./lib/log');
+const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion } = require('@whiskeysockets/baileys');
+const { processMessage }        = require('./lib/ai');
+const { Boom }                  = require("@hapi/boom");
+const qrcode                    = require('qrcode-terminal');
+const pino                      = require("pino");
+const lastMessageTime           = {};
+const logger                    = pino({ level: "silent" });
+const { addUser, getUser } = require('./lib/users');
+const { clearDirectory, logWithTime } = require('./lib/utils');
+clearDirectory('./tmp');
+
+
+async function checkAndUpdate() {
+    if (config.AutoUpdate == 'on') {
+      const { cloneOrUpdateRepo } = require('./lib/cekUpdate');
+      await cloneOrUpdateRepo(); // Menunggu hingga cloneOrUpdateRepo selesai
+    }
+    connectToWhatsApp();
+  }
+
+
+
+
+
+async function connectToWhatsApp() {
+    const sessionDir = path.join(__dirname, 'session');
+
+    const { state, saveCreds } = await useMultiFileAuthState(sessionDir);
+    const { version } = await fetchLatestBaileysVersion();
+
+    const sock = makeWASocket({
+        version,
+        logger: logger,
+        printQRInTerminal: false,
+        auth: state,
+        browser: ["Ubuntu", "Chrome", "20.0.04"],
+    });
+
+    if (!sock.authState.creds.registered && config.type_connection == 'pairing') {
+        const phoneNumber = config.phone_number_bot;
+        const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+        await delay(4000);
+        const code = await sock.requestPairingCode(phoneNumber.trim());
+        console.log(chalk.blue('PHONE NUMBER: '), chalk.yellow(phoneNumber));
+        console.log(chalk.blue('CODE PAIRING: '), chalk.yellow(code));
+    }
+
+    sock.ev.on('creds.update', saveCreds);
+
+    if (!fs.existsSync(sessionDir)) {
+        fs.mkdirSync(sessionDir, { recursive: true });
+    }
+    fs.chmodSync(sessionDir, 0o755);
+    fs.readdir(sessionDir, (err, files) => {
+        if (err) {return;}
+        files.forEach(file => {
+            const filePath = path.join(sessionDir, file);
+            fs.chmod(filePath, 0o644, (err) => {  
+                if (err) {console.error('Error changing file permissions:', err);
+                } 
+            });
+        });
+    });
+
+
+
+
+    sock.ev.on('messages.upsert', async (m) => { // CHAT MASUK
+        try {  // console.log(JSON.stringify(m, null, 2))
+
+            if (!m || !m.messages || !m.messages[0]) {
+                console.log(chalk.redBright('Pesan tidak valid'), chalk.yellow(phoneNumber));
+                return;
+            }
+
+            if (m.type === 'append') {
+                return false;
+            }
+
+            const messageTimestamp = m.messages[0].messageTimestamp;
+            const message = m.messages[0];
+            const key = message.key || {};
+            const remoteJid = key.remoteJid || '';
+            const fromMe = key.fromMe || false;
+            const id = key.id || false;
+            const participant = key.participant || ''; // Untuk pesan dari grup
+            const pushName = message.pushName || 'Unknown';
+            const isGroup = remoteJid.endsWith('@g.us'); // Cek apakah pesan dari grup
+            const sender = isGroup ? participant : remoteJid;
+
+            if (remoteJid == "status@broadcast") {
+                return false;
+            }
+
+
+           // Handle Destination
+           const destination = config.bot_destination.toLowerCase();
+
+           if (
+               (isGroup && destination === 'private') || 
+               (!isGroup && destination === 'group')
+           ) {
+               return;
+           }
+
+
+
+            let content = '';
+            let messageType = '';
+            if (message && message.message) {
+                messageType = Object.keys(message.message)[0];
+                // stickerMessage,audioMessage,extendedTextMessage,imageMessage, videoMessage
+
+                content = messageType === 'conversation' ? message.message.conversation :
+                messageType === 'extendedTextMessage' ? message.message.extendedTextMessage.text :
+                messageType === 'senderKeyDistributionMessage' ? message.message.conversation :
+                messageType === 'imageMessage' ? message.message.imageMessage.caption || 'No caption' :
+                messageType === 'stickerMessage' ? 'stickerMessage' :
+                messageType === 'templateButtonReplyMessage' ? message.message.templateButtonReplyMessage.selectedId : '';
+
+            } else {
+                return console.log(chalk.redBright('Message atau message.message tidak terdefinisi'));
+            }
+
+            if(content == ''){return}
+
+            let truncatedContent = content;
+
+            if (content.length > 10) {
+                truncatedContent = content.substring(0, 10) + '...';
+            }
+            //if(content == '-') return
+            const currentTime = Date.now();
+            if (lastMessageTime[sender] && (currentTime - lastMessageTime[sender] < config.rate_limit)) {
+                console.log(chalk.redBright(`Rate limit : ${truncatedContent} - ${sender}`));
+                return; 
+            }
+            lastMessageTime[sender] = currentTime;
+            logWithTime(pushName, truncatedContent)
+            //console.log(chalk.greenBright(`${pushName} : ${truncatedContent}`));
+
+            // Log File
+            writeLog('INFO', `${remoteJid}: ${content}`);
+
+
+            // Cek Users
+            const userReady = getUser(remoteJid);
+            if (!userReady) {
+                addUser(remoteJid, -1);
+            }
+
+            /* --------------------- Send Message ---------------------- */
+            try {
+                const response = await processMessage(content, sock, remoteJid, message, messageType, pushName);
+                
+            } catch (error) {
+                console.error("Terjadi kesalahan saat memproses pesan:", error);
+            }
+        } catch (error) {
+            console.log(chalk.redBright(`Error dalam message upsert: ${error.message}`));
+        }
+
+
+    });
+
+
+    sock.ev.on("connection.update", async (update) => {
+        const { connection, lastDisconnect, qr } = update;
+        if (qr != null && config.type_connection == 'qr') {
+            console.log(chalk.yellowBright(`Menampilkan QR`));
+        
+            // Menampilkan QR code dalam terminal
+            qrcode.generate(qr, { small: true }, (qrcodeStr) => {
+                console.log(qrcodeStr);  // Menampilkan QR code dalam bentuk kecil
+            });
+        }
+
+        if (connection === 'close') {
+            let reason = new Boom(lastDisconnect?.error)?.output.statusCode;
+            switch (reason) {
+                case DisconnectReason.badSession:
+                    console.log(chalk.redBright(`Bad Session File, Start Again ...`));
+                    return await connectToWhatsApp()
+                    break;
+
+                case DisconnectReason.connectionClosed:
+                    console.log(chalk.redBright(`Connection closed, reconnecting....`));
+                    return await connectToWhatsApp()
+                    break;
+
+                case DisconnectReason.connectionLost:
+                    console.log(chalk.redBright(`Connection Lost from Server, reconnecting...`));
+                    return await connectToWhatsApp()
+                    break;
+
+                case DisconnectReason.connectionReplaced:
+                    console.log(chalk.redBright(`Connection Replaced, Another New Session Opened, Please Restart Bot`));
+                    return await connectToWhatsApp()
+                    break;
+
+                case DisconnectReason.loggedOut:
+                    console.log(chalk.redBright(`Perangkat Terkeluar, Silakan Lalukan Scan/Pairing Ulang`));
+                    break;
+
+                case DisconnectReason.restartRequired:
+                    console.log(chalk.redBright(`Restart Required, Restarting..`));
+                    return await connectToWhatsApp()
+                    break;
+
+                case DisconnectReason.timedOut:
+                    console.log(chalk.redBright(`Connection TimedOut, Reconnecting...`));
+                    return await connectToWhatsApp()
+                    break;
+
+                default:
+                    console.log(chalk.redBright(`Unknown DisconnectReason: ${reason}|${connection}`));
+                    return await connectToWhatsApp();
+                    break;
+            }
+
+        } else if (connection === 'open') {
+            await sock.sendMessage(`${config.phone_number_bot}@s.whatsapp.net`, { text: "Bot Connected" });
+            console.log(chalk.greenBright(`KONEKSI TERHUBUNG`));
+
+        }
+    });
+    return sock;
+}
+
+checkAndUpdate();
+// api.get('/api/doa/random')
+//   .then(response => console.log(response))
+//   .catch(error => console.error(error));
+
+// api.getBuffer('/api/textpro/blackpink', { text : 'Blackpink'})
+//   .then(response => console.log(response))
+//   .catch(error => console.error(error));
+
+
+// Upload File Tmp
+// const filePath = path.join(__dirname, 'tes.png');
+// api.tmpUpload(filePath)
+//   .then(response => console.log('File uploaded successfully:', response))
+//   .catch(error => console.error('Error uploading file:', error));
