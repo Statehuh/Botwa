@@ -183,9 +183,9 @@ async function connectToWhatsApp() {
 
 
             // Cek Users
-            const userReady = getUser(remoteJid);
+            const userReady = getUser(sender);
             if (!userReady) {
-                addUser(remoteJid, -1);
+                addUser(sender, -1);
             }
 
             /* --------------------- Send Message ---------------------- */
