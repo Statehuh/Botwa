@@ -20,8 +20,8 @@ const moment= require("moment-timezone")
 
 const config = {
     AutoUpdate          : 'off', // on atau off
-    API_KEY             : 'apikey_premium_9b85434f815b696e7809b61a4755b8a8', // APIKEY ANDA AMBIL DI autoresbot.com
-    GEMINI_API_KEY      : 'AIzaSyDFBFp5k5mqZB35jdaAXLVfpuyku-W3iN4',
+    API_KEY             : 'APIKEY_GRATIS', // APIKEY ANDA AMBIL DI autoresbot.com
+    GEMINI_API_KEY      : 'AIzaSyDFBFp5k5mqZB35jdaAXLVfpuyku-W3iN4', // https://youtu.be/02oGg3-3a-s?si=9WhaVsLyfc6B-YYI
     phone_number_bot    : '6282287634350',
     type_connection     : 'pairing', // qr atau pairing
     bot_destination     : 'group', // group , private, both
