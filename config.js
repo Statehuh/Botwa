@@ -20,16 +20,16 @@ const moment= require("moment-timezone")
 
 const config = {
     AutoUpdate          : 'off', // on atau off
-    API_KEY             : 'APIKEY_GRATIS', // APIKEY ANDA AMBIL DI autoresbot.com
+    API_KEY             : 'apikey_premium_9b85434f815b696e7809b61a4755b8a8', // APIKEY ANDA AMBIL DI autoresbot.com
     GEMINI_API_KEY      : 'AIzaSyDFBFp5k5mqZB35jdaAXLVfpuyku-W3iN4',
     phone_number_bot    : '6282287634350',
     type_connection     : 'pairing', // qr atau pairing
-    bot_destination     : 'private', // group , private, both
+    bot_destination     : 'group', // group , private, both
     name_bot            : 'Resbot Ai',
     owner_name          : 'Autoresbot',
     owner_number        : '6285246154386',
     owner_website       : 'autoresbot.com',
-    version             : '1.0.3',
+    version             : global.version,
     rate_limit          : 3000, // 3 detik
     total_limit         : 20, // limit perhari -  user biasa || kalo premium unlimited
     sticker_packname    : 'Autoresbot',

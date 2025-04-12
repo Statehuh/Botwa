@@ -21,7 +21,7 @@ const path          = require('path')
 const fs            = require('fs');
 const chalk         = require('chalk');
 const { writeLog } = require('./lib/log');
-const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion } = require('@whiskeysockets/baileys');
+const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, makeInMemoryStore } = require('@whiskeysockets/baileys');
 const { processMessage }        = require('./lib/ai');
 const { Boom }                  = require("@hapi/boom");
 const qrcode                    = require('qrcode-terminal');
@@ -30,7 +30,9 @@ const lastMessageTime           = {};
 const logger                    = pino({ level: "silent" });
 const { addUser, getUser } = require('./lib/users');
 const { clearDirectory, logWithTime } = require('./lib/utils');
+const store = makeInMemoryStore({ logger })
 clearDirectory('./tmp');
+global.version = '1.0.4'
 
 
 async function checkAndUpdate() {
@@ -38,15 +40,18 @@ async function checkAndUpdate() {
       const { cloneOrUpdateRepo } = require('./lib/cekUpdate');
       await cloneOrUpdateRepo(); // Menunggu hingga cloneOrUpdateRepo selesai
     }
-    connectToWhatsApp();
+    await connectToWhatsApp();
   }
 
 
-
-
-
 async function connectToWhatsApp() {
-    const sessionDir = path.join(__dirname, 'session');
+
+    if (global.sock && global.sock.user && global.sock.ws && global.sock.ws.readyState === 1) {
+        console.log(chalk.yellow("⚠️ Bot sudah terkoneksi dan aktif. Tidak membuat koneksi baru."));
+        return global.sock;
+    }
+
+    const sessionDir = path.join(process.cwd(), 'session');
 
     const { state, saveCreds } = await useMultiFileAuthState(sessionDir);
     const { version } = await fetchLatestBaileysVersion();
@@ -59,7 +64,9 @@ async function connectToWhatsApp() {
         browser: ["Ubuntu", "Chrome", "20.0.04"],
     });
 
-    if (!sock.authState.creds.registered && config.type_connection == 'pairing') {
+    global.sock = sock; 
+
+    if (!sock.authState.creds.registered && config.type_connection.toLowerCase() == 'pairing') {
         const phoneNumber = config.phone_number_bot;
         const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
         await delay(4000);
@@ -69,6 +76,7 @@ async function connectToWhatsApp() {
     }
 
     sock.ev.on('creds.update', saveCreds);
+
 
     if (!fs.existsSync(sessionDir)) {
         fs.mkdirSync(sessionDir, { recursive: true });
@@ -86,7 +94,15 @@ async function connectToWhatsApp() {
     });
 
 
+    
+    store.bind(sock.ev);
 
+    sock.ev.on('contacts.update', (contacts) => { // UPDATE KONTAK
+        contacts.forEach(contact => {
+            store.contacts[contact.id] = contact;
+        });
+
+    });
 
     sock.ev.on('messages.upsert', async (m) => { // CHAT MASUK
         try {  // console.log(JSON.stringify(m, null, 2))
@@ -174,7 +190,7 @@ async function connectToWhatsApp() {
 
             /* --------------------- Send Message ---------------------- */
             try {
-                const response = await processMessage(content, sock, remoteJid, message, messageType, pushName);
+                await processMessage(content, sock, sender, remoteJid, message, messageType, pushName);
                 
             } catch (error) {
                 console.error("Terjadi kesalahan saat memproses pesan:", error);
@@ -189,68 +205,79 @@ async function connectToWhatsApp() {
 
     sock.ev.on("connection.update", async (update) => {
         const { connection, lastDisconnect, qr } = update;
-        if (qr != null && config.type_connection == 'qr') {
+    
+        // Tampilkan QR jika tipe koneksi menggunakan QR
+        if (qr != null && config.type_connection.toLowerCase() === 'qr') {
             console.log(chalk.yellowBright(`Menampilkan QR`));
-        
-            // Menampilkan QR code dalam terminal
             qrcode.generate(qr, { small: true }, (qrcodeStr) => {
-                console.log(qrcodeStr);  // Menampilkan QR code dalam bentuk kecil
+                console.log(qrcodeStr);
             });
         }
+    
+        // Jika koneksi terbuka
+        if (connection === 'open') {
 
+            global.sock = sock; 
+            
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await sock.sendMessage(`${config.phone_number_bot}@s.whatsapp.net`, { text: "Bot Connected" });
+      
+            console.log(chalk.greenBright(`✅ KONEKSI TERHUBUNG`));
+            return;
+        }
+    
+        // Jika koneksi tertutup
         if (connection === 'close') {
-            let reason = new Boom(lastDisconnect?.error)?.output.statusCode;
+            const statusCode = lastDisconnect?.error?.output?.statusCode;
+            const reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
+            const shouldReconnect = statusCode !== DisconnectReason.loggedOut;
+    
+            console.log(`❌ Koneksi terputus. Reason: ${statusCode || "undefined"}`);
+            console.log('🔌 UPDATE:', update);
+    
             switch (reason) {
                 case DisconnectReason.badSession:
                     console.log(chalk.redBright(`Bad Session File, Start Again ...`));
-                    return await connectToWhatsApp()
-                    break;
-
-                case DisconnectReason.connectionClosed:
-                    console.log(chalk.redBright(`Connection closed, reconnecting....`));
-                    return await connectToWhatsApp()
-                    break;
-
-                case DisconnectReason.connectionLost:
-                    console.log(chalk.redBright(`Connection Lost from Server, reconnecting...`));
-                    return await connectToWhatsApp()
-                    break;
-
-                case DisconnectReason.connectionReplaced:
-                    console.log(chalk.redBright(`Connection Replaced, Another New Session Opened, Please Restart Bot`));
-                    return await connectToWhatsApp()
-                    break;
-
-                case DisconnectReason.loggedOut:
-                    console.log(chalk.redBright(`Perangkat Terkeluar, Silakan Lalukan Scan/Pairing Ulang`));
-                    break;
-
-                case DisconnectReason.restartRequired:
-                    console.log(chalk.redBright(`Restart Required, Restarting..`));
-                    return await connectToWhatsApp()
-                    break;
-
-                case DisconnectReason.timedOut:
-                    console.log(chalk.redBright(`Connection TimedOut, Reconnecting...`));
-                    return await connectToWhatsApp()
-                    break;
-
-                default:
-                    console.log(chalk.redBright(`Unknown DisconnectReason: ${reason}|${connection}`));
                     return await connectToWhatsApp();
+    
+                case DisconnectReason.connectionClosed:
+                    console.log(chalk.redBright(`Connection closed, reconnecting...`));
+                    return await connectToWhatsApp();
+    
+                case DisconnectReason.connectionLost:
+                    console.log(chalk.redBright(`Connection lost from server, reconnecting...`));
+                    return await connectToWhatsApp();
+    
+                case DisconnectReason.connectionReplaced:
+                    console.log(chalk.redBright(`Connection replaced by another session. Please restart bot.`));
+                    return await connectToWhatsApp();
+    
+                case DisconnectReason.loggedOut:
+                    console.log(chalk.redBright(`Perangkat logout. Silakan scan ulang.`));
                     break;
+    
+                case DisconnectReason.restartRequired:
+                    console.log(chalk.redBright(`Restart required. Restarting...`));
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                    return await connectToWhatsApp();
+    
+                case DisconnectReason.timedOut:
+                    console.log(chalk.redBright(`Connection timed out. Reconnecting...`));
+                    return await connectToWhatsApp();
+    
+                default:
+                    console.log(chalk.redBright(`Unknown disconnect reason: ${reason} | ${connection}`));
+                    return await connectToWhatsApp();
             }
-
-        } else if (connection === 'open') {
-            await sock.sendMessage(`${config.phone_number_bot}@s.whatsapp.net`, { text: "Bot Connected" });
-            console.log(chalk.greenBright(`KONEKSI TERHUBUNG`));
-
         }
     });
+    
+
     return sock;
 }
 
 checkAndUpdate();
+
 // api.get('/api/doa/random')
 //   .then(response => console.log(response))
 //   .catch(error => console.error(error));
