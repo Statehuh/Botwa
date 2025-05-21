@@ -21,7 +21,7 @@ const moment= require("moment-timezone")
 const config = {
     AutoUpdate          : 'off', // on atau off
     API_KEY             : '', // APIKEY ANDA AMBIL DI autoresbot.com
-    GEMINI_API_KEY      : '', // https://youtu.be/02oGg3-3a-s?si=9WhaVsLyfc6B-YYI
+    GEMINI_API_KEY      : '-W3iN4', // https://youtu.be/02oGg3-3a-s?si=9WhaVsLyfc6B-YYI
     phone_number_bot    : '6285124002196', // Nomor BOT
     type_connection     : 'pairing', // qr atau pairing
     bot_destination     : 'private', // group , private, both
