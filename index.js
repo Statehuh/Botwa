@@ -113,15 +113,12 @@ async function connectToWhatsApp() {
     });
 
     sock.ev.on('messages.upsert', async (m) => { // CHAT MASUK
-        try {  // console.log(JSON.stringify(m, null, 2))
+        try { 
 
             const result = serializeMessage(m, sock);
             if(!result) {
-                console.log('---')
-                console.log('---')
-                console.log('--- ON')
-                console.log(JSON.stringify(m, null, 2))
-                return console.log('--- OFF')
+                //console.log(JSON.stringify(m, null, 2))
+                return
             }
 
             const { isGroup, content, messageType,message,isQuoted, pushName, sender, remoteJid } = result;
@@ -147,14 +144,16 @@ async function connectToWhatsApp() {
             }
             
             const currentTime = Date.now();
-            if (lastMessageTime[sender] && (currentTime - lastMessageTime[sender] < config.rate_limit)) {
-                console.log(chalk.redBright(`Rate limit : ${truncatedContent} - ${sender}`));
+            if (content && lastMessageTime[remoteJid] && (currentTime - lastMessageTime[remoteJid] < config.rate_limit)) {
+                console.log(chalk.redBright(`Rate limit : ${truncatedContent} - ${remoteJid}`));
                 return; 
             }
-            lastMessageTime[sender] = currentTime;
-            logWithTime(pushName, truncatedContent)
-            //console.log(chalk.greenBright(`${pushName} : ${truncatedContent}`));
-
+            if(content) {
+                lastMessageTime[remoteJid] = currentTime;
+                logWithTime(pushName, truncatedContent)
+               // console.log(chalk.greenBright(`${pushName} : ${truncatedContent}`));
+            }
+           
             // Log File
             writeLog('INFO', `${remoteJid}: ${content}`);
 
