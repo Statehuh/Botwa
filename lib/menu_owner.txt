@@ -1,9 +1,12 @@
+┏━━⬣ 𝗞𝗛𝗨𝗦𝗨𝗦 𝗢𝗪𝗡𝗘𝗥
+┃ 🔐 Menu akses terbatas hanya untuk Owner.
+┗━━━━━━━━━━━━⬣
 
-_Khusus Owner:_
-
-⌬ Addprem
-⌬ Delprem
-⌬ Editprem
-⌬ Listprem 
-⌬ Listusers
-⌬ Resetdata
+╭──❲ 𝗣𝗥𝗜𝗩𝗔𝗧𝗘 𝗠𝗘𝗡𝗨 ❳
+│ ⌬  Addprem     - Tambah User Premium
+│ ⌬  Delprem     - Hapus User Premium
+│ ⌬  Editprem    - Edit Status Premium
+│ ⌬  Listprem    - Daftar User Premium
+│ ⌬  Listusers   - Semua Pengguna
+│ ⌬  Resetdata   - Reset Semua Data
+╰───────────────⬣

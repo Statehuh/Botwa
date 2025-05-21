@@ -5,7 +5,7 @@ Script ini **TIDAK BOLEH DIPERJUALBELIKAN** dalam bentuk apa pun!
 ╔══════════════════════════════════════════════╗
 ║                🛠️ INFORMASI SCRIPT           ║
 ╠══════════════════════════════════════════════╣
-║ 📦 Version   : 1.0.4
+║ 📦 Version   : 1.0.5
 ║ 👨‍💻 Developer  : Azhari Creative              ║
 ║ 🌐 Website    : https://autoresbot.com       ║
 ║ 💻 GitHub     : github.com/autoresbot/resbot-ai
@@ -20,9 +20,9 @@ const moment= require("moment-timezone")
 
 const config = {
     AutoUpdate          : 'off', // on atau off
-    API_KEY             : 'APIKEY_GRATIS', // APIKEY ANDA AMBIL DI autoresbot.com
+    API_KEY             : 'apikey_premium_9b85434f815b696e7809b61a4755b8a8', // APIKEY ANDA AMBIL DI autoresbot.com
     GEMINI_API_KEY      : 'AIzaSyDFBFp5k5mqZB35jdaAXLVfpuyku-W3iN4', // https://youtu.be/02oGg3-3a-s?si=9WhaVsLyfc6B-YYI
-    phone_number_bot    : '6282287634350',
+    phone_number_bot    : '6285124002196', // Nomor BOT
     type_connection     : 'pairing', // qr atau pairing
     bot_destination     : 'group', // group , private, both
     name_bot            : 'Resbot Ai',
@@ -31,7 +31,7 @@ const config = {
     owner_website       : 'autoresbot.com',
     version             : global.version,
     rate_limit          : 3000, // 3 detik
-    total_limit         : 20, // limit perhari -  user biasa || kalo premium unlimited
+    total_limit         : 100, // limit perhari -  user biasa || kalo premium unlimited
     sticker_packname    : 'Autoresbot',
     sticker_author      : `Date: ${moment.tz('Asia/Jakarta').format('DD/MM/YY')}\nYouTube: Azhari Creative\nBot: 0852-4615-4386`,
     notification        : {

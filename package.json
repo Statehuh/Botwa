@@ -1,6 +1,6 @@
 {
   "name": "Resbot-Ai",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A project for Resbot AI",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,8 @@
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@google/generative-ai": "^0.21.0",
-    "@whiskeysockets/baileys": "^6.7.8",
     "api-autoresbot": "^1.0.5",
+    "baileys": "^6.7.17",
     "chalk": "^4.1.0",
     "cheerio": "^1.0.0",
     "ffmpeg": "^0.0.4",

@@ -1,16 +1,21 @@
-Halo! Perkenalkan saya *@botname*, ada yang bisa saya bantu?
+┏━━⬣ 𝗛𝗮𝗹𝗼!
+┃ 👋 Hai! Perkenalkan saya *@botname*
+┃ Ada yang bisa saya bantu?
+┗━━━━━━━━━━━━⬣
 
-_Berikut beberapa daftar menu yang bisa saya lakukan:_
+📌 *Berikut beberapa menu yang bisa saya lakukan:*
 
-⌬ Ai
-⌬ Fb
-⌬ Hd
-⌬ Ig
-⌬ Info
-⌬ Limit
-⌬ Play
-⌬ Qc
-⌬ Reset
-⌬ Sticker
-⌬ Tiktok
-⌬ Apikey
+╭──❲ 𝗠𝗘𝗡𝗨 𝗨𝗧𝗔𝗠𝗔 ❳
+│ ⌬  Ai - Kecerdasan Buatan
+│ ⌬  Fb - Unduh Facebook
+│ ⌬  Hd - Perjelas Gambar
+│ ⌬  Ig - Unduh Instagram
+│ ⌬  Info - Info Bot
+│ ⌬  Limit - Cek Limit
+│ ⌬  Play - Cari Lagu
+│ ⌬  Qc - Quoted Creator
+│ ⌬  Reset - Reset Percakapan
+│ ⌬  Sticker - Buat Stiker
+│ ⌬  Tiktok - Unduh TikTok
+│ ⌬  Apikey - Kunci API Anda
+╰───────────────⬣

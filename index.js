@@ -5,7 +5,7 @@ Script ini **TIDAK BOLEH DIPERJUALBELIKAN** dalam bentuk apa pun!
 ╔══════════════════════════════════════════════╗
 ║                🛠️ INFORMASI SCRIPT           ║
 ╠══════════════════════════════════════════════╣
-║ 📦 Version   : 1.0.4
+║ 📦 Version   : 1.0.5
 ║ 👨‍💻 Developer  : Azhari Creative              ║
 ║ 🌐 Website    : https://autoresbot.com       ║
 ║ 💻 GitHub     : github.com/autoresbot/resbot-ai
@@ -16,12 +16,14 @@ Script **Autoresbot** resmi menjadi **Open Source** dan dapat digunakan secara g
 🔗 https://autoresbot.com
 */
 
+global.version = '1.0.5'
 const config        = require('./config');
 const path          = require('path')
 const fs            = require('fs');
 const chalk         = require('chalk');
 const { writeLog } = require('./lib/log');
-const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, makeInMemoryStore } = require('@whiskeysockets/baileys');
+const serializeMessage = require('./lib/serializeMessage');
+const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion } = require('baileys');
 const { processMessage }        = require('./lib/ai');
 const { Boom }                  = require("@hapi/boom");
 const qrcode                    = require('qrcode-terminal');
@@ -30,9 +32,19 @@ const lastMessageTime           = {};
 const logger                    = pino({ level: "silent" });
 const { addUser, getUser } = require('./lib/users');
 const { clearDirectory, logWithTime } = require('./lib/utils');
-const store = makeInMemoryStore({ logger })
+
+
+const EventEmitter = require('events');
+
+const eventBus = new EventEmitter();
+const store = {
+    contacts: {}
+};
+
+
+
 clearDirectory('./tmp');
-global.version = '1.0.4'
+
 
 
 async function checkAndUpdate() {
@@ -41,8 +53,7 @@ async function checkAndUpdate() {
       await cloneOrUpdateRepo(); // Menunggu hingga cloneOrUpdateRepo selesai
     }
     await connectToWhatsApp();
-  }
-
+}
 
 async function connectToWhatsApp() {
 
@@ -93,45 +104,33 @@ async function connectToWhatsApp() {
         });
     });
 
-
-    
-    store.bind(sock.ev);
-
     sock.ev.on('contacts.update', (contacts) => { // UPDATE KONTAK
         contacts.forEach(contact => {
             store.contacts[contact.id] = contact;
         });
+        eventBus.emit('contactsUpdated', store.contacts);
 
     });
 
     sock.ev.on('messages.upsert', async (m) => { // CHAT MASUK
         try {  // console.log(JSON.stringify(m, null, 2))
 
-            if (!m || !m.messages || !m.messages[0]) {
-                console.log(chalk.redBright('Pesan tidak valid'), chalk.yellow(phoneNumber));
-                return;
+            const result = serializeMessage(m, sock);
+            if(!result) {
+                console.log('---')
+                console.log('---')
+                console.log('--- ON')
+                console.log(JSON.stringify(m, null, 2))
+                return console.log('--- OFF')
             }
 
-            if (m.type === 'append') {
-                return false;
-            }
-
-            const messageTimestamp = m.messages[0].messageTimestamp;
-            const message = m.messages[0];
-            const key = message.key || {};
-            const remoteJid = key.remoteJid || '';
-            const fromMe = key.fromMe || false;
-            const id = key.id || false;
-            const participant = key.participant || ''; // Untuk pesan dari grup
-            const pushName = message.pushName || 'Unknown';
-            const isGroup = remoteJid.endsWith('@g.us'); // Cek apakah pesan dari grup
-            const sender = isGroup ? participant : remoteJid;
+            const { isGroup, content, messageType,message,isQuoted, pushName, sender, remoteJid } = result;
 
             if (remoteJid == "status@broadcast") {
                 return false;
             }
 
-
+        
            // Handle Destination
            const destination = config.bot_destination.toLowerCase();
 
@@ -142,33 +141,11 @@ async function connectToWhatsApp() {
                return;
            }
 
-
-
-            let content = '';
-            let messageType = '';
-            if (message && message.message) {
-                messageType = Object.keys(message.message)[0];
-                // stickerMessage,audioMessage,extendedTextMessage,imageMessage, videoMessage
-
-                content = messageType === 'conversation' ? message.message.conversation :
-                messageType === 'extendedTextMessage' ? message.message.extendedTextMessage.text :
-                messageType === 'senderKeyDistributionMessage' ? message.message.conversation :
-                messageType === 'imageMessage' ? message.message.imageMessage.caption || 'No caption' :
-                messageType === 'stickerMessage' ? 'stickerMessage' :
-                messageType === 'templateButtonReplyMessage' ? message.message.templateButtonReplyMessage.selectedId : '';
-
-            } else {
-                return console.log(chalk.redBright('Message atau message.message tidak terdefinisi'));
-            }
-
-            if(content == ''){return}
-
             let truncatedContent = content;
-
             if (content.length > 10) {
                 truncatedContent = content.substring(0, 10) + '...';
             }
-            //if(content == '-') return
+            
             const currentTime = Date.now();
             if (lastMessageTime[sender] && (currentTime - lastMessageTime[sender] < config.rate_limit)) {
                 console.log(chalk.redBright(`Rate limit : ${truncatedContent} - ${sender}`));
@@ -190,7 +167,7 @@ async function connectToWhatsApp() {
 
             /* --------------------- Send Message ---------------------- */
             try {
-                await processMessage(content, sock, sender, remoteJid, message, messageType, pushName);
+                await processMessage(content, sock, sender, remoteJid, message, messageType, pushName, isQuoted);
                 
             } catch (error) {
                 console.error("Terjadi kesalahan saat memproses pesan:", error);
@@ -231,9 +208,6 @@ async function connectToWhatsApp() {
             const statusCode = lastDisconnect?.error?.output?.statusCode;
             const reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
             const shouldReconnect = statusCode !== DisconnectReason.loggedOut;
-    
-            console.log(`❌ Koneksi terputus. Reason: ${statusCode || "undefined"}`);
-            console.log('🔌 UPDATE:', update);
     
             switch (reason) {
                 case DisconnectReason.badSession:
@@ -277,18 +251,3 @@ async function connectToWhatsApp() {
 }
 
 checkAndUpdate();
-
-// api.get('/api/doa/random')
-//   .then(response => console.log(response))
-//   .catch(error => console.error(error));
-
-// api.getBuffer('/api/textpro/blackpink', { text : 'Blackpink'})
-//   .then(response => console.log(response))
-//   .catch(error => console.error(error));
-
-
-// Upload File Tmp
-// const filePath = path.join(__dirname, 'tes.png');
-// api.tmpUpload(filePath)
-//   .then(response => console.log('File uploaded successfully:', response))
-//   .catch(error => console.error('Error uploading file:', error));
